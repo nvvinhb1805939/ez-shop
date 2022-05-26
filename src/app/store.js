@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import baseReducer from 'features/BaseFeature/baseSlice';
+import baseReducer from 'features/Authentication/authSlice';
 
 const rootReducer = {
   base: baseReducer,
