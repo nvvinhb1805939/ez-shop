@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, CircularProgress, Grid, LinearProgress } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, LinearProgress, Typography } from '@mui/material';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 const FullwithGridItem = ({ children, ...componentProps }) => (
@@ -13,45 +14,24 @@ const FullwithGridItem = ({ children, ...componentProps }) => (
   </Grid>
 );
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
-RegisterForm.defaultProps = {
+LoginForm.defaultProps = {
   onSubmit: null,
 };
 
-export default function RegisterForm({ onSubmit }) {
+export default function LoginForm({ onSubmit }) {
   const schema = yup.object().shape({
-    fullName: yup
-      .string()
-      .trim()
-      .required('This field is required')
-      .test(
-        'Fullname should has at least two words',
-        'Please enter at least two words',
-        value => value.split(' ').length >= 2
-      ),
-    email: yup.string().trim().required('This field is required').email('Please enter a valid email address'),
-    password: yup
-      .string()
-      .trim()
-      .required('This field is required')
-      .min(6, 'Please enter at least 6 characters')
-      .max(14, 'Please enter maximum 14 character'),
-    retypePassword: yup
-      .string()
-      .trim()
-      .required('This field is required')
-      .oneOf([yup.ref('password')], `Password doesn't match`),
+    identifier: yup.string().trim().required('This field is required').email('Please enter a valid email address'),
+    password: yup.string().trim().required('This field is required'),
   });
 
   const { control, handleSubmit, formState, reset } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      fullName: '',
-      email: '',
+      identifier: '',
       password: '',
-      retypePassword: '',
     },
     resolver: yupResolver(schema),
   });
@@ -67,20 +47,14 @@ export default function RegisterForm({ onSubmit }) {
       {formState.isSubmitting && <LinearProgress sx={{ position: 'absolute', top: 8, left: 0, right: 0 }} />}
       <Grid container rowSpacing={3}>
         <FullwithGridItem>
-          <InputField control={control} name='fullName' label='Fullname' />
-        </FullwithGridItem>
-        <FullwithGridItem>
-          <InputField control={control} name='email' label='Email' />
+          <InputField control={control} name='identifier' label='Email' />
         </FullwithGridItem>
         <FullwithGridItem>
           <PasswordField control={control} name='password' label='Password' />
         </FullwithGridItem>
         <FullwithGridItem>
-          <PasswordField control={control} name='retypePassword' label='Retype Password' />
-        </FullwithGridItem>
-        <FullwithGridItem>
           <Button disabled={formState.isSubmitting} type='submit' fullWidth variant='contained'>
-            {formState.isSubmitting && <CircularProgress thickness={2} size={25} sx={{ mr: 2 }} />} Register
+            {formState.isSubmitting && <CircularProgress thickness={2} size={25} sx={{ mr: 2 }} />} Login
           </Button>
         </FullwithGridItem>
       </Grid>

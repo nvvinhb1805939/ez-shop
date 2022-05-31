@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:4000/api/',
+  baseURL: 'https://api.ezfrontend.com/',
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -22,7 +22,11 @@ axiosClient.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    return Promise.reject(error);
+    const data = error.response.data;
+    const message = data.message;
+    const errorMessage = message[0].messages[0].message;
+    throw new Error(errorMessage);
+    // return Promise.reject(new Error(errorMessage));
   }
 );
 
