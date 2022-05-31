@@ -1,13 +1,13 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
-  login(data) {
-    const url = '/login';
+  register(data) {
+    const url = '/auth/local/register';
     return axiosClient.post(url, data);
   },
-  getAll() {
-    const url = '/getAll';
-    return axiosClient.get(url);
+  login(data) {
+    const url = '/auth/local';
+    return axiosClient.post(url, data);
   },
 };
 
