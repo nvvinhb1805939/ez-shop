@@ -4,7 +4,6 @@ import userApi from 'api/userApi';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
 
 Register.propTypes = {
@@ -15,7 +14,6 @@ Register.defaultProps = {
 };
 
 function Register({ closeModal }) {
-  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async data => {

@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, CircularProgress, Grid, LinearProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, LinearProgress } from '@mui/material';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 const FullwithGridItem = ({ children, ...componentProps }) => (
