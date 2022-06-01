@@ -1,7 +1,6 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Stack, Typography } from '@mui/material';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { login, register } from 'features/Authentication/authSlice';
+import { login } from 'features/Authentication/authSlice';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -23,8 +22,8 @@ function Login({ closeModal }) {
     try {
       data.username = data.email;
       const action = login(data);
-      const response = await dispatch(action);
-      const user = unwrapResult(response);
+      await dispatch(action);
+
       if (closeModal) closeModal();
     } catch (error) {
       enqueueSnackbar(error, {
