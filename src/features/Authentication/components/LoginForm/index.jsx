@@ -1,18 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, CircularProgress, Grid, LinearProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, LinearProgress } from '@mui/material';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
+import FullwidthGridItem from 'components/FullwidthGridItem';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-
-const FullwithGridItem = ({ children, ...componentProps }) => (
-  <Grid item xl={12} lg={12} md={12} sm={12} xs={12} {...componentProps}>
-    {children}
-  </Grid>
-);
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -46,17 +40,17 @@ export default function LoginForm({ onSubmit }) {
     <Box component='form' onSubmit={handleSubmit(handleOnSubmit)}>
       {formState.isSubmitting && <LinearProgress sx={{ position: 'absolute', top: 8, left: 0, right: 0 }} />}
       <Grid container rowSpacing={3}>
-        <FullwithGridItem>
+        <FullwidthGridItem>
           <InputField control={control} name='identifier' label='Email' />
-        </FullwithGridItem>
-        <FullwithGridItem>
+        </FullwidthGridItem>
+        <FullwidthGridItem>
           <PasswordField control={control} name='password' label='Password' />
-        </FullwithGridItem>
-        <FullwithGridItem>
+        </FullwidthGridItem>
+        <FullwidthGridItem>
           <Button disabled={formState.isSubmitting} type='submit' fullWidth variant='contained'>
             {formState.isSubmitting && <CircularProgress thickness={2} size={25} sx={{ mr: 2 }} />} Login
           </Button>
-        </FullwithGridItem>
+        </FullwidthGridItem>
       </Grid>
     </Box>
   );
