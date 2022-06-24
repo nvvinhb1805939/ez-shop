@@ -67,7 +67,7 @@ function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar color='primary'>
         <Container maxWidth='lg'>
-          <Toolbar>
+          <Toolbar disableGutters>
             <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
@@ -83,7 +83,7 @@ function Header() {
               {' '}
               <Link to='/'>
                 <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                  .ezshop
+                  .shop
                 </Typography>
               </Link>
             </Box>

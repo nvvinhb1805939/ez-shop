@@ -1,20 +1,18 @@
 import { createTheme } from '@mui/material';
-
-const COLOR = {
-  primary: '#4caf50',
-  secondary: '#1976d2',
-  contrastText: '#fff',
-};
+import Palette from 'constant/palette';
 
 const theme = createTheme({
   palette: {
+    background: {
+      main: Palette.BACKGROUND,
+    },
     primary: {
-      main: COLOR.primary,
-      contrastText: COLOR.contrastText,
+      main: Palette.PRIMARY,
+      contrastText: Palette.CONTRAST_TEXT,
     },
     secondary: {
-      main: COLOR.secondary,
-      contrastText: COLOR.contrastText,
+      main: Palette.SECONDARY,
+      contrastText: Palette.CONTRAST_TEXT,
     },
   },
 });
