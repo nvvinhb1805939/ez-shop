@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Container, Grid, Pagination, Paper } from '@mui/material';
 import productApi from 'api/productApi';
-import ProductsSkeleton from 'features/Product/components/ProductsSkeleton';
-import Products from 'features/Product/components/Products';
 import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
-import ProductSort from 'features/Product/components/ProductSort';
 import ProductFilter from 'features/Product/components/ProductFilter';
 import ProductFilterViewer from 'features/Product/components/ProductFilter/ProductFilterViewer';
-import { useSearchParams } from 'react-router-dom';
+import Products from 'features/Product/components/Products';
+import ProductSort from 'features/Product/components/ProductSort';
+import ProductsSkeleton from 'features/Product/components/ProductsSkeleton';
 import queryString from 'query-string';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 ProductListPage.propTypes = {};
 
