@@ -1,3 +1,4 @@
+import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
 import axiosClient from './axiosClient';
 
 const DEFAULT_ITEMS = 50;

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box, Chip, List, ListItem } from '@mui/material';
 import categoryApi from 'api/categoryApi';
-import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import formatPrice from 'utils/formatPrice';
 
 ProductFilterViewer.propTypes = {
@@ -18,7 +17,12 @@ const FILTER_VIEWERS = [
     isVisible: () => true,
     isRemovable: false,
     onRemove: () => {},
-    onToggle: filters => ({ ...filters, isFreeShip: !filters.isFreeShip }),
+    onToggle: filters => {
+      const newFilters = { ...filters };
+      if (newFilters.hasOwnProperty('isFreeShip')) delete newFilters.isFreeShip;
+      else newFilters.isFreeShip = true;
+      return newFilters;
+    },
   },
   {
     id: 2,
@@ -71,6 +75,7 @@ const FILTER_VIEWERS = [
 
 function ProductFilterViewer({ filters = {}, onChange = null }) {
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     (async () => {
       try {

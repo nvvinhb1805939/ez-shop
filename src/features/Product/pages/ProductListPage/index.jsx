@@ -1,19 +1,22 @@
 import { Container, Grid, Pagination, Paper } from '@mui/material';
 import productApi from 'api/productApi';
 import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
+import getLengthObject from 'utils/getLengthObject';
 import ProductFilter from 'features/Product/components/ProductFilter';
 import ProductFilterViewer from 'features/Product/components/ProductFilter/ProductFilterViewer';
 import Products from 'features/Product/components/Products';
 import ProductSort from 'features/Product/components/ProductSort';
 import ProductsSkeleton from 'features/Product/components/ProductsSkeleton';
 import queryString from 'query-string';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
-ProductListPage.propTypes = {};
+const INITIAL_FILTERS = { _page: 1, _limit: INITIAL_QUANTITY_PRODUCT, _sort: 'salePrice:ASC' };
 
 function ProductListPage(props) {
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -21,36 +24,25 @@ function ProductListPage(props) {
     page: 1,
     total: INITIAL_QUANTITY_PRODUCT,
   });
-  const [filters, setFilters] = useState(() => {
-    const newFilters = {};
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-    for (const [key, value] of searchParams.entries()) {
-      newFilters[key] = value;
-    }
-    console.log(newFilters);
-    return {
-      _page: 1,
-      _limit: INITIAL_QUANTITY_PRODUCT,
-      _sort: 'salePrice:ASC',
-      ...newFilters,
-    };
-  });
-
-  useEffect(() => {
-    const queryParams = queryString.stringify(filters);
-    setSearchParams(queryParams);
-  }, [filters]);
+  const filters = useMemo(() => {
+    const newFilters = JSON.parse(JSON.stringify(queryString.parse(location.search)));
+    return getLengthObject(newFilters) > getLengthObject(INITIAL_FILTERS) ? newFilters : INITIAL_FILTERS;
+  }, [location.search]);
 
   useEffect(() => {
     (async () => {
       try {
         const { data, pagination } = await productApi.getAll(filters);
+        if (!isFirstLoad) setSearchParams(queryString.stringify(filters));
         setProducts(data);
         setPagination(pagination);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
+      setIsFirstLoad(false);
     })();
 
     return () => setLoading(true);
@@ -58,22 +50,16 @@ function ProductListPage(props) {
 
   const handlePaginationChange = (event, newPage) => {
     if (Number.parseInt(filters._page) !== newPage) {
-      setFilters(prevFilters => ({
-        ...prevFilters,
-        _page: newPage,
-      }));
+      setSearchParams(queryString.stringify({ ...filters, _page: newPage }));
     }
   };
 
   const handleSortChange = newSort => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      _sort: newSort,
-    }));
+    setSearchParams(queryString.stringify({ ...filters, _sort: newSort }));
   };
 
   const handleFilterChange = newFilters => {
-    setFilters({ ...newFilters, _page: 1 });
+    setSearchParams(queryString.stringify({ ...newFilters, _page: 1 }));
   };
 
   return (
@@ -87,6 +73,7 @@ function ProductListPage(props) {
         <Grid item sx={{ flex: 1 }}>
           <Paper elevation={0} sx={{ borderRadius: 0 }}>
             <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />
+            {console.log('render', filters)}
             <ProductFilterViewer filters={filters} onChange={handleFilterChange} />
             {loading ? <ProductsSkeleton /> : <Products data={products} />}
           </Paper>
@@ -108,4 +95,5 @@ function ProductListPage(props) {
     </Container>
   );
 }
+
 export default ProductListPage;
