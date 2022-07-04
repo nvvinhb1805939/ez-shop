@@ -28,7 +28,7 @@ function ProductListPage(props) {
 
   const filters = useMemo(() => {
     const newFilters = JSON.parse(JSON.stringify(queryString.parse(location.search)));
-    return getLengthObject(newFilters) > getLengthObject(INITIAL_FILTERS) ? newFilters : INITIAL_FILTERS;
+    return JSON.stringify(newFilters) === '{}' ? INITIAL_FILTERS : newFilters;
   }, [location.search]);
 
   useEffect(() => {
@@ -72,8 +72,7 @@ function ProductListPage(props) {
         </Grid>
         <Grid item sx={{ flex: 1 }}>
           <Paper elevation={0} sx={{ borderRadius: 0 }}>
-            <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />
-            {console.log('render', filters)}
+            <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />{' '}
             <ProductFilterViewer filters={filters} onChange={handleFilterChange} />
             {loading ? <ProductsSkeleton /> : <Products data={products} />}
           </Paper>
