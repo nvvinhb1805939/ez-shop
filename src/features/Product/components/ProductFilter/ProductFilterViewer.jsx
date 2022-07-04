@@ -2,7 +2,7 @@ import { Box, Chip, List, ListItem } from '@mui/material';
 import categoryApi from 'api/categoryApi';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import formatPrice from 'utils/formatPrice';
+import { formatPrice } from 'utils';
 
 ProductFilterViewer.propTypes = {
   filters: PropTypes.object,

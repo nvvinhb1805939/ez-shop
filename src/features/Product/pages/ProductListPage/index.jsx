@@ -1,7 +1,6 @@
 import { Container, Grid, Pagination, Paper } from '@mui/material';
 import productApi from 'api/productApi';
 import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
-import getLengthObject from 'utils/getLengthObject';
 import ProductFilter from 'features/Product/components/ProductFilter';
 import ProductFilterViewer from 'features/Product/components/ProductFilter/ProductFilterViewer';
 import Products from 'features/Product/components/Products';
@@ -10,6 +9,7 @@ import ProductsSkeleton from 'features/Product/components/ProductsSkeleton';
 import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { getLengthObject } from 'utils';
 
 const INITIAL_FILTERS = { _page: 1, _limit: INITIAL_QUANTITY_PRODUCT, _sort: 'salePrice:ASC' };
 
@@ -55,6 +55,7 @@ function ProductListPage(props) {
   };
 
   const handleSortChange = newSort => {
+    console.log(filters, newSort);
     setSearchParams(queryString.stringify({ ...filters, _sort: newSort }));
   };
 
@@ -73,7 +74,6 @@ function ProductListPage(props) {
         <Grid item sx={{ flex: 1 }}>
           <Paper elevation={0} sx={{ borderRadius: 0 }}>
             <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />
-            {console.log('render', filters)}
             <ProductFilterViewer filters={filters} onChange={handleFilterChange} />
             {loading ? <ProductsSkeleton /> : <Products data={products} />}
           </Paper>

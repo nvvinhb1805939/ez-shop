@@ -1,8 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constant/common';
 import PropTypes from 'prop-types';
-import React from 'react';
-import formatPrice from 'utils/formatPrice';
+import { formatPrice, getThumbnail } from 'utils';
 
 Products.propTypes = {
   data: PropTypes.array,
@@ -12,8 +10,6 @@ Products.defaultProps = {
 };
 
 function Products({ data }) {
-  const getThumbnail = url => (url ? `${STATIC_HOST}${url}` : THUMBNAIL_PLACEHOLDER);
-
   return (
     <Grid container columnSpacing={1} rowSpacing={2} sx={{ p: 1 }}>
       {data.map(product => (
