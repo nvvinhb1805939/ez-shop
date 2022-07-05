@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Skeleton } from '@mui/material';
+import { Box, Grid, Skeleton } from '@mui/material';
 import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
 
 ProductsSkeleton.propTypes = {

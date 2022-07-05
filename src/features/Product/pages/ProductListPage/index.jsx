@@ -1,7 +1,6 @@
 import { Container, Grid, Pagination, Paper } from '@mui/material';
 import productApi from 'api/productApi';
 import { INITIAL_QUANTITY_PRODUCT } from 'constant/common';
-import getLengthObject from 'utils/getLengthObject';
 import ProductFilter from 'features/Product/components/ProductFilter';
 import ProductFilterViewer from 'features/Product/components/ProductFilter/ProductFilterViewer';
 import Products from 'features/Product/components/Products';
@@ -72,7 +71,7 @@ function ProductListPage(props) {
         </Grid>
         <Grid item sx={{ flex: 1 }}>
           <Paper elevation={0} sx={{ borderRadius: 0 }}>
-            <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />{' '}
+            <ProductSort currentSort={filters._sort} onSortChange={handleSortChange} />
             <ProductFilterViewer filters={filters} onChange={handleFilterChange} />
             {loading ? <ProductsSkeleton /> : <Products data={products} />}
           </Paper>
