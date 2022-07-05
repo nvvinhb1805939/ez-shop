@@ -9,7 +9,6 @@ import ProductsSkeleton from 'features/Product/components/ProductsSkeleton';
 import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { getLengthObject } from 'utils';
 
 const INITIAL_FILTERS = { _page: 1, _limit: INITIAL_QUANTITY_PRODUCT, _sort: 'salePrice:ASC' };
 
@@ -28,7 +27,7 @@ function ProductListPage(props) {
 
   const filters = useMemo(() => {
     const newFilters = JSON.parse(JSON.stringify(queryString.parse(location.search)));
-    return getLengthObject(newFilters) > getLengthObject(INITIAL_FILTERS) ? newFilters : INITIAL_FILTERS;
+    return JSON.stringify(newFilters) === '{}' ? INITIAL_FILTERS : newFilters;
   }, [location.search]);
 
   useEffect(() => {
@@ -55,7 +54,6 @@ function ProductListPage(props) {
   };
 
   const handleSortChange = newSort => {
-    console.log(filters, newSort);
     setSearchParams(queryString.stringify({ ...filters, _sort: newSort }));
   };
 

@@ -81,7 +81,6 @@ function ProductFilterViewer({ filters = {}, onChange = null }) {
       try {
         const response = await categoryApi.getAll();
         const newCategories = response.map(category => ({ id: category.id, name: category.name }));
-        console.log(newCategories);
         setCategories(newCategories);
       } catch (error) {
         console.log(error);

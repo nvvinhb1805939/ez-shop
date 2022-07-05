@@ -10,7 +10,6 @@ import {
   DialogActions,
   DialogContent,
   IconButton,
-  Link,
   Stack,
   Toolbar,
   Tooltip,
@@ -21,6 +20,7 @@ import Login from 'features/Authentication/components/Login';
 import Register from 'features/Authentication/components/Register';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 Header.propTypes = {};
 
@@ -80,7 +80,6 @@ function Header() {
                 },
               }}
             >
-              {' '}
               <Link to='/'>
                 <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                   .shop
