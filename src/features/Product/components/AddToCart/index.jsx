@@ -1,8 +1,13 @@
 import { Box, Button } from '@mui/material';
 import QuantityField from 'components/form-controls/QuantityField';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
-function AddToCart() {
+AddToCart.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+function AddToCart({ onSubmit = null }) {
   const { control, setValue, handleSubmit } = useForm({
     defaultValues: {
       quantity: 1,
@@ -10,7 +15,7 @@ function AddToCart() {
   });
 
   const handleAddToCart = formValues => {
-    console.log(formValues);
+    if (onSubmit) onSubmit(formValues);
   };
 
   return (
