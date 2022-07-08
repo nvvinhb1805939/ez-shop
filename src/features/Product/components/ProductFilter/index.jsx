@@ -1,6 +1,5 @@
-import React from 'react';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Box, Typography } from '@mui/material';
 import FilterByCategory from './FilterByCategory';
 import FilterByPrice from './FilterByPrice';
 import FilterByService from './FilterByService';
